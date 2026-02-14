@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For My Queen ❤️</title>
+
+<style>
+body{
+  margin:0;
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-family:'Segoe UI',sans-serif;
+  overflow:hidden;
+  background: linear-gradient(-45deg,#ff6a88,#ff99ac,#c471ed,#f64f59);
+  background-size:400% 400%;
+  animation: gradient 12s ease infinite;
+  color:white;
+  text-align:center;
+}
+
+@keyframes gradient{
+  0%{background-position:0% 50%;}
+  50%{background-position:100% 50%;}
+  100%{background-position:0% 50%;}
+}
+
+.container{
+  position:relative;
+  max-width:700px;
+  width:90%;
+  padding:40px;
+  backdrop-filter: blur(15px);
+  background: rgba(255,255,255,0.1);
+  border-radius:20px;
+  box-shadow:0 0 40px rgba(0,0,0,0.4);
+}
+
+#typing{
+  font-size:24px;
+  min-height:100px;
+}
+
+button{
+  display:none;
+  margin-top:30px;
+  padding:15px 40px;
+  font-size:18px;
+  border:none;
+  border-radius:50px;
+  background:linear-gradient(45deg,#ff2e63,#ff6a88);
+  color:white;
+  cursor:pointer;
+  box-shadow:0 0 20px #ff2e63;
+  transition:0.3s;
+}
+
+button:hover{
+  transform:scale(1.1);
+}
+
+#letter{
+  display:none;
+  margin-top:20px;
+  font-size:20px;
+  line-height:1.8;
+  opacity:0;
+  transition:1.5s ease;
+}
+
+.fadeIn{
+  opacity:1 !important;
+}
+
+.signature{
+  margin-top:30px;
+  font-style:italic;
+  opacity:0.9;
+}
+
+.photo{
+  margin-top:25px;
+  width:200px;
+  height:200px;
+  border-radius:50%;
+  object-fit:cover;
+  box-shadow:0 0 25px rgba(255,255,255,0.7);
+  border:4px solid rgba(255,255,255,0.6);
+  transition: transform 20s ease-in-out;
+}
+
+.photo.zoom{
+  transform: scale(1.1);
+}
+
+.glow-name{
+  font-size:30px;
+  font-weight:bold;
+  color:#fff;
+  text-shadow: 0 0 20px #ff69b4, 0 0 30px #ff1493, 0 0 40px #ff69b4;
+  margin-bottom:15px;
+}
+
+.sparkle{
+  position:absolute;
+  width:10px;
+  height:10px;
+  background:rgba(255,182,193,0.8);
+  border-radius:50%;
+  pointer-events:none;
+  animation: sparkleFall linear forwards;
+}
+
+@keyframes sparkleFall{
+  0%{transform:translateY(0px);opacity:1;}
+  100%{transform:translateY(100vh);opacity:0;}
+}
+
+.heart{
+  position:absolute;
+  color:white;
+  font-size:20px;
+  animation: float 8s linear infinite;
+}
+
+@keyframes float{
+  0%{transform:translateY(100vh);opacity:0;}
+  50%{opacity:1;}
+  100%{transform:translateY(-10vh);opacity:0;}
+}
+
+/* Mobile tweaks */
+@media screen and (max-width: 480px){
+  .container{
+    max-width: 90%;
+    padding: 25px;
+  }
+  #typing{
+    font-size: 20px;
+  }
+  #letter{
+    font-size: 18px;
+  }
+  button{
+    padding: 12px 30px;
+    font-size: 16px;
+  }
+  .photo{
+    width: 180px;
+    height: 180px;
+  }
+  .glow-name{
+    font-size:24px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<audio id="bgMusic" src="music.mp3" loop></audio>
+
+<div class="container">
+  <div id="typing"></div>
+  <button id="openBtn" onclick="openLetter()">Open my heart ❤️</button>
+
+  <div id="letter">
+    <!-- Glowing name -->
+    <div class="glow-name">[OLUWANIFEMI]</div>
+
+    <!-- Her photo -->
+    <img src="her.jpeg" alt="My Love" class="photo">
+
+    <p>
+    Happy Valentine’s my queen. I’m grateful that you’ve been in my life and you mean the world to me my baby.
+    </p>
+
+    <p>
+    From the time I told you how I felt, you’ve always made me comfortable just being myself and I really appreciate you.
+    </p>
+
+    <p>
+    You bring so much peace and joy to my world and I really appreciate you for that my love.
+    </p>
+
+    <p>
+    I might not say it enough but I love you so much and I’ll always continue to love you my baby 🩷
+    </p>
+
+    <div class="signature">
+      — Forever yours ❤️
+    </div>
+
+    <button id="replayBtn" onclick="replayLove()" style="display:none;margin-top:20px;">Replay Love 💖</button>
+  </div>
+</div>
+
+<script>
+let text=[
+"I didn’t want to just send a message...",
+"You deserve something more intentional.",
+"So I built this for you."
+];
+
+let i=0;
+let j=0;
+let currentText="";
+let typingDiv=document.getElementById("typing");
+
+function type(){
+  if(i<text.length){
+    if(j<text[i].length){
+      currentText+=text[i][j];
+      typingDiv.innerHTML=currentText;
+      j++;
+      setTimeout(type,40);
+    }else{
+      currentText+="<br><br>";
+      i++;
+      j=0;
+      setTimeout(type,700);
+    }
+  }else{
+    document.getElementById("openBtn").style.display="inline-block";
+  }
+}
+
+function openLetter(){
+  document.getElementById("typing").style.display="none";
+  document.getElementById("openBtn").style.display="none";
+  let letter=document.getElementById("letter");
+  letter.style.display="block";
+  setTimeout(()=>letter.classList.add("fadeIn"),100);
+
+  // Play music
+  document.getElementById("bgMusic").play();
+
+  // Start hearts and sparkles
+  startHearts();
+  startSparkles();
+
+  // Start slow zoom on photo
+  document.querySelector(".photo").classList.add("zoom");
+
+  // Show replay button after 2s
+  setTimeout(()=>document.getElementById("replayBtn").style.display="inline-block",2000);
+}
+
+function startHearts(){
+  setInterval(()=>{
+    let heart=document.createElement("div");
+    heart.className="heart";
+    heart.innerHTML="❤️";
+    heart.style.left=Math.random()*window.innerWidth+"px";
+    heart.style.fontSize=Math.random()*25+15+"px";
+    document.body.appendChild(heart);
+    setTimeout(()=>heart.remove(),8000);
+  },400);
+}
+
+function startSparkles(){
+  setInterval(()=>{
+    let sparkle=document.createElement("div");
+    sparkle.className="sparkle";
+    sparkle.style.left=Math.random()*window.innerWidth+"px";
+    sparkle.style.width=(Math.random()*8+5)+"px";
+    sparkle.style.height=(Math.random()*8+5)+"px";
+    document.body.appendChild(sparkle);
+    setTimeout(()=>sparkle.remove(),6000);
+  },300);
+}
+
+function replayLove(){
+  // Reset everything
+  document.getElementById("letter").style.display="none";
+  document.getElementById("letter").classList.remove("fadeIn");
+  document.getElementById("replayBtn").style.display="none";
+  document.getElementById("typing").innerHTML="";
+  document.getElementById("typing").style.display="block";
+  document.querySelector(".photo").classList.remove("zoom");
+  i=0; j=0; currentText="";
+  type();
+  document.getElementById("bgMusic").currentTime = 0;
+}
+type();
+</script>
+
+</body>
+</html>
